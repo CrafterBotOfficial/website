@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="/public/img/favicon.ico">
+        <title>Crafterbot</title>
+
+        <link rel="stylesheet" href="/public/css/socials.css"/>
+        <link rel="stylesheet" href="/public/css/terminal.css"/>
+    </head>
+    <body>
+        <div id="container">
+
+        </div>
+
+        <div class="nav">
+            {{ range .Socials }}
+                <a href="{{.Url}}" target="_blank">
+                    <img src="{{.Icon}}"
+                         width="32"
+                         height="32">
+                </a>
+            {{ end }}
+        </div>
+
+        <script>
+            const messages = {{.Messages}};
+            const serverTime = {{.ServerTime}}
+        </script>
+
+        <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+        <script src="/public/js/typewriter.js"> </script>
+        <script src="/public/js/terminal.js"> </script>
+    </body>
+</html>

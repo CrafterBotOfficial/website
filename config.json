@@ -1,0 +1,26 @@
+{
+    "Messages": [
+        "Hello, I'm Crafterbot. I typically create mods for games I like.",
+        "Some of my favorite projects of mine are FallMonke, RisingLava, GorillaHands and my Hyprland rice.",
+        "You can contact me on Discord @crafterbot"    
+    ],
+
+    "Socials": [
+        {
+            "Icon": "https://codeberg.org/assets/img/favicon.png",
+            "Url": "https://codeberg.org/Crafterbot"
+        },
+        {
+            "Icon": "https://github.com/fluidicon.png",
+            "Url": "https://github.com/CrafterBotOfficial"
+        },
+        {
+            "Icon": "https://www.youtube.com/s/desktop/82395fae/img/logos/favicon_32x32.png",
+            "Url": "https://www.youtube.com/channel/UCHcqgkIWAnVjlRthkgyTKWQ"
+        },
+        {
+            "Icon": "https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/6266bc493fb42d4e27bb8393_847541504914fd33810e70a0ea73177e.ico",
+            "Url": "https://discord.gg/rxSEV6PqJu"
+        }
+    ]
+}

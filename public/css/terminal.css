@@ -1,0 +1,32 @@
+* {
+    font-family: 'Ubuntu', monospace;
+    font-size: 14px;
+    line-height: 22px; 
+    /* font-weight: 300; */
+}
+
+body {
+    background-color: #300A24;    
+
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    width: 100%;
+    color: #FFFFFF;
+    padding: 10px;
+}
+
+.Typewriter__wrapper {
+}
+
+#context {
+    color: #00FF00;
+}
+
+#context-path {
+    color: #3465A4;
+}
