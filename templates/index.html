@@ -6,6 +6,7 @@
         <link rel="icon" type="image/x-icon" href="/public/img/favicon.ico">
         <title>Crafterbot</title>
 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <link rel="stylesheet" href="/public/css/socials.css"/>
         <link rel="stylesheet" href="/public/css/terminal.css"/>
     </head>
@@ -16,12 +17,16 @@
 
         <div class="nav">
             {{ range .Socials }}
-                <a href="{{.Url}}" target="_blank">
-                    <img src="{{.Icon}}"
-                         width="32"
-                         height="32">
-                </a>
+            <a href="{{.Url}}" target="_blank">
+                <img src="{{.Icon}}"
+                     width="32"
+                     height="32">
+            </a>
             {{ end }}
+        </div>
+
+        <div class="fixed-bottom">
+            <a href="/articles">My Posts</a>
         </div>
 
         <script>
@@ -29,6 +34,7 @@
             const serverTime = {{.ServerTime}}
         </script>
 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
         <script src="/public/js/last_login.js"> </script>
         <script src="/public/js/typewriter.js"> </script>

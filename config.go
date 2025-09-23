@@ -6,12 +6,19 @@ import (
 	"os"
 )
 
+type DatabaseConfig struct {
+	Name string
+	Address string
+	User string
+}
+
 type Social struct {
 	Icon string
 	Url string
 }
 
 type Config struct {
+	Database DatabaseConfig
 	Messages []string
 	Socials []Social
 }
@@ -23,14 +30,14 @@ func get_config() Config {
 		return *cached_config
 	}
 
-	json_file, e := os.ReadFile("config.json")
-	if e != nil {
+	json_file, err := os.ReadFile("config.json")
+	if err != nil {
 		log.Fatal("No config.json file")
 	}
 
 	var config_json Config
-	e = json.Unmarshal(json_file, &config_json)
-	if e != nil {
+	err = json.Unmarshal(json_file, &config_json)
+	if err != nil {
 		log.Fatal("Failed to parse config")
 	}
 
