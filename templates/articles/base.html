@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Crafterbob</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="/public/css/style.css"/>
+    </head>
+    <body>
+        <div class="fixed-top">
+            <h1 class="p-2 mb-0 text-center position-relative">Articles</h1>
+            <ul class="position-absolute nav nav-tabs w-100"
+                style="top: 25px;">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/articles">Articles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">About Me</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="container"
+              style="padding-top: 7rem;">
+            {{block "content" .}}{{end}}
+        </div>
+    </body>
+</html>

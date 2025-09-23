@@ -1,8 +1,6 @@
 {
     "Database": { 
-        "Name": "blogs",
-        "Address": "127.0.0.1:3306",
-        "User": "mysql"
+        "ManifestTable": "blog"
     },
 
     "Messages": [

@@ -4,29 +4,38 @@ import (
 	"database/sql"
 	"log"
 	"os"
- 	_ "github.com/mattn/go-sqlite3"
+	"path"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
-var db *sql.DB
+var database *sql.DB
 
-func get_database() *sql.DB {
-	if db == nil {
-		connect_database()
-	}
-	return db
+func GetInfoRoot() string {
+	return os.Getenv("WEBSITE_INFO_DIRECTORY")
 }
 
-func connect_database() {
-	// var global_config = get_config()
+func GetDatabasePath() string {
+	return path.Join(GetInfoRoot(), "blog.db")
+}
 
-	// config := mysql.NewConfig()
-	// config.User = global_config.Database.User
-	// config.Passwd = os.Getenv("DBPASS")
-	// config.Addr = global_config.Database.Address
-	// config.DBName = global_config.Database.Name
+func GetDatabase() *sql.DB {
+	if database == nil {
+		ConnectDatabase()
+	}
+	return database 
+}
+
+func ConnectDatabase() {
+	p := GetDatabasePath();
+	log.Printf("Opening database at %s", p)
 
 	var err error
-	db, err = sql.Open("sqlite3", os.Getenv("DB_PATH"))
+	if _, err = os.Stat(p); err != nil {
+		log.Fatalf("Database doesn't exist in directory %s", GetInfoRoot())
+	}
+
+	db, err := sql.Open("sqlite3", p)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,4 +44,6 @@ func connect_database() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	database = db
 }

@@ -7,9 +7,7 @@ import (
 )
 
 type DatabaseConfig struct {
-	Name string
-	Address string
-	User string
+	ManifestTable string
 }
 
 type Social struct {
@@ -23,11 +21,11 @@ type Config struct {
 	Socials []Social
 }
 
-var cached_config *Config
+var cachedConfig *Config
 
-func get_config() Config {
-	if cached_config != nil {
-		return *cached_config
+func GetConfig() Config {
+	if cachedConfig != nil {
+		return *cachedConfig
 	}
 
 	json_file, err := os.ReadFile("config.json")
@@ -35,13 +33,13 @@ func get_config() Config {
 		log.Fatal("No config.json file")
 	}
 
-	var config_json Config
-	err = json.Unmarshal(json_file, &config_json)
+	var config Config
+	err = json.Unmarshal(json_file, &config)
 	if err != nil {
 		log.Fatal("Failed to parse config")
 	}
 
 	log.Printf("Loaded config")
-	cached_config = &config_json
-	return config_json
+	cachedConfig = &config
+	return config 
 }

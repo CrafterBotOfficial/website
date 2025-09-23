@@ -4,36 +4,46 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path"
 	"strings"
+	"time"
 )
 
 type Blog struct {
 	Id int
 	Title string
 	Author string
+	Summary string
+	Date time.Time
+	IsPublic bool
+
+	SanitizedName string
 }
 
-func get_article_by_url(url string) (string, error) {
-	names := strings.Split(url, "/")
-	articlePath := fmt.Sprintf("%s/%s.md", os.Getenv("ARTICLES_PATH"), names[len(names) - 1])
-	if _, err := os.Stat(articlePath); err != nil {
+func GetArticleById(u string) (string, error) {
+	a := strings.Split(u, "/")
+	n := a[len(a) - 1]
+	d := path.Join(GetInfoRoot(), "articles")
+	p := fmt.Sprintf("%s/%s.md", d, n)
+	if _, err := os.Stat(p); err != nil {
 		log.Printf("Article markdown not found")
 		return "Article not found", err
 	}
 
-	contents, err := os.ReadFile(articlePath)
+	s, err := os.ReadFile(p)
 	if err != nil {
 		return "Couldn't read article", err
 	}
 
-	return string(contents), nil
+	return string(s), nil
 }
 
-func get_articles() ([]Blog, error) {
-	db = get_database()
-	var result []Blog
+func GetArticles() ([]Blog, error) {
+	db := GetDatabase()
+	var r []Blog
 
-	rows, err := db.Query("SELECT * FROM manifest")
+	c := GetConfig()
+	rows, err := db.Query("SELECT * FROM " + c.Database.ManifestTable)
 	if err != nil {
 		return nil, err
 	}
@@ -42,15 +52,21 @@ func get_articles() ([]Blog, error) {
 
 	for rows.Next() {
 		var blog Blog
-		if err := rows.Scan(&blog.Id, &blog.Title, &blog.Author); err != nil {
+		if err := rows.Scan(&blog.Id, &blog.Title, &blog.Author, &blog.Summary, &blog.Date, &blog.IsPublic); err != nil {
 			return nil, err	
 		}
-		result = append(result, blog)
+		blog.SanitizedName = strings.TrimSpace(strings.ToLower(strings.ReplaceAll(blog.Title, " ", "_")))
+		r = append(r, blog)
 	}
 
 	err = rows.Err()
 	if err != nil {
 		return nil, err
 	}
-	return result, nil
+	if len(r) > 0 {
+		return r, nil
+	}
+	log.Printf("No articles in db")
+	return nil, nil
 }
+
