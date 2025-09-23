@@ -7,11 +7,11 @@ Welcome to Ubuntu 24.9 (GNU/Linux 6.10.0-1007-raspi aarch64)<br>
     * Management:     https://landscape.canonical.com<br>
     * Support:        https://ubuntu.com/pro<br>
     <br>
-    Last login: ${serverTime}<br>
+    Last login: ${getLastLoginTime()}<br>
     `
 
 const prefix = '<span id="context">crafterbot@ubuntu</span>:<span id="context-path">~</span>$ ' //"crafterbot@ubuntu:~$ " //
-const writerTempo =  25
+const writerTempo = 15 
 
 var typewriter = new Typewriter(container, {
     delay: writerTempo,
