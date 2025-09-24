@@ -53,6 +53,7 @@ func GetArticles() ([]Article, error) {
 	for rows.Next() {
 		var b Article
 		rows.Scan(&b.Id, &b.Title, &b.Author, &b.Summary, &b.Date, &b.IsPublic)
+		b.SanitizedName = strings.TrimSpace(strings.ToLower(strings.ReplaceAll(b.Title, " ", "_")))
 		r = append(r, b)
 	}
 
