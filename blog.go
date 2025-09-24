@@ -69,4 +69,3 @@ func GetArticles() ([]Blog, error) {
 	log.Printf("No articles in db")
 	return nil, nil
 }
-

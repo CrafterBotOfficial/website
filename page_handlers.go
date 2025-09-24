@@ -10,7 +10,7 @@ import (
 	"github.com/russross/blackfriday/v2"
 )
 
-func index_page(w http.ResponseWriter, r *http.Request) {
+func IndexPage(w http.ResponseWriter, r *http.Request) {
 	config := GetConfig()
 
 	pageData := IndexPageData {}
@@ -21,7 +21,20 @@ func index_page(w http.ResponseWriter, r *http.Request) {
 	handler("index", pageData, w, r)
 }
 
-func read_article_page(w http.ResponseWriter, r *http.Request) {
+func ProjectPage(w http.ResponseWriter, r *http.Request) {
+	ps, err := GetProjects()
+	if err != nil {
+		http.Error(w, "Failed to get projects", http.StatusInternalServerError)
+		log.Printf("%s", err)
+		return
+	}
+	p := ProjectsPageData {}
+	p.Title = "My Projects"
+	p.Projects = ps
+	ineritHandler("projects", p, w, r)
+}
+
+func ReadArticlePage(w http.ResponseWriter, r *http.Request) {
 	pageData := ArticlePostPageData {}
 	contents, err := GetArticleById(r.URL.Path)
 	if err != nil {
@@ -30,23 +43,29 @@ func read_article_page(w http.ResponseWriter, r *http.Request) {
 
 	markdown := blackfriday.Run([]byte(contents), blackfriday.WithExtensions(blackfriday.LaxHTMLBlocks))
 	pageData.Content = template.HTML(markdown)
-	inherit_handler("article_view", pageData, w, r)
+	ineritHandler("article_view", pageData, w, r)
 }
 
-func articles_page(w http.ResponseWriter, r *http.Request) {
+func ListArticlePage(w http.ResponseWriter, r *http.Request) {
 	articles, err := GetArticles()
 	if err != nil {
 		log.Println(err)
 	}
 
 	pageData := ArticlesPageData {}
+	pageData.Title = "Articles"
 	pageData.Blogs = articles
 
-	inherit_handler("articles", pageData, w, r)
+	ineritHandler("articles", pageData, w, r)
 }
 
-func inherit_handler(n string, pageData PageVars, w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseGlob("templates/articles/*.html")
+func ineritHandler(n string, pageData PageVars, w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseGlob("templates/*.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	t, err = t.ParseGlob("templates/articles/*.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

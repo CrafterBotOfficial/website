@@ -10,6 +10,11 @@ type IndexPageData struct {
 	Socials []Social
 }
 
+type ProjectsPageData struct {
+	Title string
+	Projects []Project
+}
+
 type ArticlePostPageData struct {
 	Title string
 	Author string
@@ -17,5 +22,6 @@ type ArticlePostPageData struct {
 }
 
 type ArticlesPageData struct {
+	Title string
 	Blogs []Blog
 }
