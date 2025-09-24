@@ -23,5 +23,5 @@ type ArticlePostPageData struct {
 
 type ArticlesPageData struct {
 	Title string
-	Blogs []Blog
+	Articles []Article
 }

@@ -54,7 +54,7 @@ func ListArticlePage(w http.ResponseWriter, r *http.Request) {
 
 	pageData := ArticlesPageData {}
 	pageData.Title = "Articles"
-	pageData.Blogs = articles
+	pageData.Articles = articles
 
 	ineritHandler("articles", pageData, w, r)
 }

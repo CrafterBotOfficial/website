@@ -6,7 +6,7 @@ import (
 )
 
 type Project struct {
-	Id int
+	Id int64 
 	Title string
 	Icon string
 	DownloadUrl string
@@ -16,31 +16,21 @@ type Project struct {
 
 func GetProjects() ([]Project, error) {
 	db := GetDatabase()
-	var r []Project
 
 	rows, err := db.Query("SELECT * FROM mods")
 	if err != nil {
+		log.Print(err)
 		return nil, err
 	}
 
 	defer rows.Close()
 
+	var r []Project
 	for rows.Next() {
-		var project Project
-		if err := rows.Scan(&project.Id, &project.Title, &project.Icon, &project.DownloadUrl, &project.Summary, &project.Date); err != nil {
-			return nil, err	
-		}
-		r = append(r, project)
+		var p Project
+		rows.Scan(&p.Id, &p.Title, &p.Icon, &p.DownloadUrl, &p.Summary, p.Date)
+		r = append(r, p)
 	}
 
-	err = rows.Err()
-	if err != nil {
-		return nil, err
-	}
-
-	if len(r) > 0 {
-		return r, nil
-	}
-	log.Printf("No mods in db")
-	return nil, nil
+	return r, nil
 }

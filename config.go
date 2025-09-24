@@ -6,17 +6,12 @@ import (
 	"os"
 )
 
-type DatabaseConfig struct {
-	ManifestTable string
-}
-
 type Social struct {
 	Icon string
 	Url string
 }
 
 type Config struct {
-	Database DatabaseConfig
 	Messages []string
 	Socials []Social
 }

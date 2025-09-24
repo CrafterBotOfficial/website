@@ -1,8 +1,4 @@
 {
-    "Database": { 
-        "ManifestTable": "blog"
-    },
-
     "Messages": [
         "Hello, I'm Crafterbot. I typically create mods for games I like.",
         "Some of my favorite projects of mine are FallMonke, RisingLava, GorillaHands and my Hyprland rice.",

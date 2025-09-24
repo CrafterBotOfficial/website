@@ -9,8 +9,8 @@ import (
 	"time"
 )
 
-type Blog struct {
-	Id int
+type Article struct {
+	Id int64 
 	Title string
 	Author string
 	Summary string
@@ -38,34 +38,23 @@ func GetArticleById(u string) (string, error) {
 	return string(s), nil
 }
 
-func GetArticles() ([]Blog, error) {
+func GetArticles() ([]Article, error) {
 	db := GetDatabase()
-	var r []Blog
 
-	c := GetConfig()
-	rows, err := db.Query("SELECT * FROM " + c.Database.ManifestTable)
+	rows, err := db.Query("SELECT * FROM blog")
 	if err != nil {
+		log.Print(err)
 		return nil, err
 	}
 
 	defer rows.Close()
 
+	var r []Article
 	for rows.Next() {
-		var blog Blog
-		if err := rows.Scan(&blog.Id, &blog.Title, &blog.Author, &blog.Summary, &blog.Date, &blog.IsPublic); err != nil {
-			return nil, err	
-		}
-		blog.SanitizedName = strings.TrimSpace(strings.ToLower(strings.ReplaceAll(blog.Title, " ", "_")))
-		r = append(r, blog)
+		var b Article
+		rows.Scan(&b.Id, &b.Title, &b.Author, &b.Summary, &b.Date, &b.IsPublic)
+		r = append(r, b)
 	}
 
-	err = rows.Err()
-	if err != nil {
-		return nil, err
-	}
-	if len(r) > 0 {
-		return r, nil
-	}
-	log.Printf("No articles in db")
-	return nil, nil
+	return r, nil
 }
