@@ -1,0 +1,39 @@
+{{template "base.html" .}}
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?compat=recaptcha" async defer></script>
+<div>
+    <div class="start-50 
+                top-50
+                translate-middle 
+                position-absolute"
+         style="width: 25rem;
+                ">
+        <form class="card
+                     card-body"
+              hx-post="/api/send-idea"
+              hx-target="#container">
+            <h1 class="card-title mx-auto">Mod Idea</h1>
+            <div id="container">
+                <label class="form-label">Send me a idea for a Gorilla Tag mod.</label>
+                <textarea class="mb-3 form-control" name="idea" placeholder="Your mod idea..."></textarea>
+                <div>
+                    <div class="cf-turnstile" data-sitekey="{{.TurnstileKey}}" data-callback="onSuccess"></div>
+                    <button class="form-control" 
+                            type="submit"
+                            id="submitbtn">
+                        Send
+                    </button>
+                </div>
+            </div>
+        </form>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script>
+            const btn = $('#submitbtn')
+            btn.hide()
+            function onSuccess() {
+                btn.show()
+                $('.cf-turnstile').hide()
+            }
+        </script>
+    </div>
+</div>

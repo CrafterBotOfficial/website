@@ -12,10 +12,11 @@ type Social struct {
 }
 
 type Config struct {
-	DBName   string
-	Port 	 int
-	Messages []string
-	Socials  []Social
+	DBName   	 string
+	Port 	 	 int
+	TurnstileKey string
+	Messages 	 []string
+	Socials      []Social
 }
 
 var cachedConfig *Config

@@ -1,6 +1,7 @@
 {
     "DBName": "blog.db",
     "Port": 8080,
+    "TurnstileKey": "0x4AAAAAAB4Mo7mtHuRQlLBo",
     "Messages": [
         "Hello, I'm Crafterbot. I typically create mods for games I like.",
         "Some of my favorite projects of mine are FallMonke, RisingLava, GorillaHands and my Hyprland rice.",
