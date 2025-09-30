@@ -4,17 +4,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"website/routers"
+	"website/services"
 )
 
 func main() {
-	config := GetConfig()
+	config := services.GetConfig()
 
-	fs := http.FileServer(http.Dir("public"))
-	http.Handle("/public/", http.StripPrefix("/public/", fs))
-
-	http.HandleFunc("/", IndexPage)
-    http.HandleFunc("/projects", ProjectPage)
-    http.HandleFunc("/articles/", ListArticlePage)
-    http.HandleFunc("/post/", ReadArticlePage)
+	routers.Init()
     log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), nil))
 }
