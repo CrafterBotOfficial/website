@@ -8,12 +8,14 @@ import (
 
 type Social struct {
 	Icon string
-	Url string
+	Url  string
 }
 
 type Config struct {
+	DBName   string
+	Port 	 int
 	Messages []string
-	Socials []Social
+	Socials  []Social
 }
 
 var cachedConfig *Config

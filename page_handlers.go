@@ -42,6 +42,7 @@ func ReadArticlePage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	markdown := blackfriday.Run([]byte(contents), blackfriday.WithExtensions(blackfriday.LaxHTMLBlocks))
+	pageData.Title = "Article"
 	pageData.Content = template.HTML(markdown)
 	ineritHandler("article_view", pageData, w, r)
 }

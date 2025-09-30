@@ -1,11 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 )
 
 func main() {
+	config := GetConfig()
+
 	fs := http.FileServer(http.Dir("public"))
 	http.Handle("/public/", http.StripPrefix("/public/", fs))
 
@@ -13,5 +16,5 @@ func main() {
     http.HandleFunc("/projects", ProjectPage)
     http.HandleFunc("/articles/", ListArticlePage)
     http.HandleFunc("/post/", ReadArticlePage)
-    log.Fatal(http.ListenAndServe(":8080", nil))
+    log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), nil))
 }

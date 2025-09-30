@@ -16,7 +16,8 @@ func GetInfoRoot() string {
 }
 
 func GetDatabasePath() string {
-	return path.Join(GetInfoRoot(), "blog.db")
+	c := GetConfig()
+	return path.Join(GetInfoRoot(), c.DBName)
 }
 
 func GetDatabase() *sql.DB {

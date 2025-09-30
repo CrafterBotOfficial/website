@@ -21,10 +21,10 @@ type Article struct {
 }
 
 func GetArticleById(u string) (string, error) {
-	a := strings.Split(u, "/")
-	n := a[len(a) - 1]
-	d := path.Join(GetInfoRoot(), "articles")
-	p := fmt.Sprintf("%s/%s.md", d, n)
+	url := strings.Split(u, "/")
+	endpoint := url[len(url) - 1]
+	path := path.Join(GetInfoRoot(), "articles")
+	p := fmt.Sprintf("%s/%s.md", path, endpoint)
 	if _, err := os.Stat(p); err != nil {
 		log.Printf("Article markdown not found")
 		return "Article not found", err
