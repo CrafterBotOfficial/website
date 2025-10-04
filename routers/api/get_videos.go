@@ -40,7 +40,7 @@ func RequestVideos(w http.ResponseWriter, r *http.Request) {
 		NextPageUrl: getNextPage(pageIndex, len(videos)),
 	}
 
-	tmpl := template.Must(template.ParseFiles("templates/video_container.html"))
+	tmpl := template.Must(template.ParseFiles("templates/video_container.html", "templates/shared/page_buttons.html"))
 	tmpl.ExecuteTemplate(w, "video_container.html", d)
 }
 

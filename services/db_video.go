@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"slices"
+	"strings"
 	"time"
 )
 
@@ -13,6 +14,8 @@ type VideoData struct {
 	DownloadUrl string
 	Summary 	string
 	Date		time.Time
+
+	IsVideo		bool
 }
 
 var cachedVideoRows []VideoData
@@ -48,6 +51,7 @@ func GetVideos() ([]VideoData, error) {
 			var b VideoData 
 			rows.Scan(&b.Id, &b.Title, &b.DownloadUrl, &b.Summary, &b.Date)
 			b.DownloadUrl = fmt.Sprintf("/trailcam/%s", b.DownloadUrl)
+			b.IsVideo = strings.HasSuffix(strings.ToLower(b.DownloadUrl), ".mp4")
 			r = append(r, b)
 		}
 		cachedVideoRows = r

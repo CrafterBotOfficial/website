@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 	"website/routers/api"
 	"website/routers/web"
@@ -26,13 +27,14 @@ func Init() {
 }
 
 func initFileServerVideo() {
-	dir := os.Getenv("VIDEO_DIR")
-	if len(dir) == 0 {
-		log.Fatal("VIDEO_DIR isn't setup")
+	infoDir := os.Getenv("WEBSITE_INFO_DIRECTORY")
+	if len(infoDir) == 0 {
+		log.Fatal("WEBSITE_INFO_DIRECTORY dir isn't setup")
 	}
+	dir := filepath.Join(infoDir, "trailcam")
 
 	if !strings.Contains(dir, "trailcam") {
-		log.Fatal("Bad VIDEO_DIR, make sure its correct!")
+		log.Fatal("Bad WEBSITE_INFO_DIRECTORY, make sure its correct!")
 	}
 
 	fs := http.FileServer(http.Dir(dir))
