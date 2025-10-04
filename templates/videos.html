@@ -1,0 +1,16 @@
+{{template "base.html" .}}
+
+<div class="container">
+    <div 
+         hx-get="/api/get-videos?page=0"
+         hx-trigger="load" 
+         hx-target="#video-container"
+         hx-swap="innerHTML">
+
+        <div id="video-container">
+
+        </div>
+
+    </div>
+</div>
+
