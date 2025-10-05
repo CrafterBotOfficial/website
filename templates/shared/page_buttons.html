@@ -1,18 +1,29 @@
 <div style="margin: 15px 0 15px 0;" class="text-center">
-    {{if .PrevPageUrl}}
-    <button hx-get="{{.PrevPageUrl}}" hx-target="#video-container" hx-swap="innerHTML">
+    <button hx-get="{{.PrevPageUrl}}" 
+            hx-target="#video-container" 
+            hx-swap="innerHTML"
+
+            {{if not .PrevPageUrl}}
+            disabled
+            class="btn btn-outline-secondary" 
+            {{else}}
+            class="btn btn-secondary" 
+            {{end}}
+            >
         Prev
     </button>
-    {{end}}
 
-    {{if .NextPageUrl}}
-    <button hx-get="{{.NextPageUrl}}" hx-target="#video-container" hx-swap="innerHTML">
+    <button hx-get="{{.NextPageUrl}}" 
+            hx-target="#video-container" 
+            hx-swap="innerHTML"
+
+            {{if not .NextPageUrl}}
+            disabled
+            class="btn btn-outline-secondary" 
+            {{else}}
+            class="btn btn-secondary" 
+            {{end}}
+            >
         Next
     </button>
-    {{end}}
-
-    <pre class="fixed-bottom">
-    Some of the dates on these videos/images may be inaccurate.
-    Copyright (c) 2025 Crafterbot. All Rights Reserved.
-    </pre>
 </div>

@@ -1,4 +1,4 @@
-<div>
+<div style="transform: scale(1.2); transform: translate(0, 5%);">
 
     {{template "page_buttons.html" .}}
 
@@ -16,6 +16,7 @@
                    class="card-text" 
                    width="100%" 
                    height="100%" 
+                   aria-label="{{.Summary}}"
                    controls>
 
                 <source src="{{.DownloadUrl}}" type="video/mp4">
@@ -33,4 +34,10 @@
     </div>
 
     {{template "page_buttons.html" .}}
+
 </div>
+
+<pre class="text-center fixed-bottom p-3">
+    Some of the dates on these videos/images may be inaccurate.
+    Copyright (c) 2025 Crafterbot. All Rights Reserved.
+</pre>

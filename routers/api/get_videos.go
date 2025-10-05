@@ -28,7 +28,7 @@ func RequestVideos(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	videos, err := services.GetChunkedVideos(4, pageIndex)
+	videos, err := services.GetChunkedVideos(6, pageIndex)
 	if err != nil {
 		http.Error(w, "Failed to find videos in database", http.StatusInternalServerError)
 		return
