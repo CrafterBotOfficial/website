@@ -18,9 +18,17 @@ func ListArticle(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
+	if !services.IsAuthorized(r) {
+		for i, v := range articles {
+			if !v.IsPublic {
+				articles = append(articles[:i], articles[i+1:]...)
+			}
+		}
+	}
+
 	pageData := ArticlesPageData {}
 	pageData.Title = "Articles"
-	pageData.Articles = articles
+	pageData.Articles = articles 
 
 	tmpl := template.Must(template.ParseFiles(
 		"templates/base.html",

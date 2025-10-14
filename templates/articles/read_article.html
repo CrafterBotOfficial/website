@@ -1,0 +1,20 @@
+{{template "base.html" .}}
+
+<div style="padding: 0 15% 0 15%;"
+     id="main-container">
+    {{if .IsAdmin}}
+    <button class="position-absolute
+                   btn
+                   btn-secondary
+                   end-0"
+            style="margin-right: 5rem;"
+            hx-post="/api/edit-article" 
+            hx-target="#main-container"
+            hx-swap="innerHTML"
+            hx-vals='{ "articleId": "{{.Id}}" }'>
+        Edit
+    </button>
+    {{end}}
+
+    {{.Content}} 
+</div>

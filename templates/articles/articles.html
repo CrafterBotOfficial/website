@@ -10,11 +10,16 @@
         <div class="col">
             <div class="card h-100">
                 <div class="card-body">
-                    <a href="/post/{{.SanitizedName}}"
+                    <a href="/post/{{.Id}}"
                        class="card-title">
                         <h5>{{.Title}}</h5>
                     </a>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">By {{.Author}}</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                        By {{.Author}}
+                        {{if not .IsPublic}}
+                        <span style="color: red;">Hidden</span>
+                        {{end}}
+                    </h6>
                     <p class="card-text">{{.Summary}}</p>
                 </div>
             </div>

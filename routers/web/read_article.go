@@ -2,33 +2,53 @@ package web
 
 import (
 	"html/template"
-	"log"
 	"net/http"
+	"strconv"
+	"strings"
 	"website/services"
 
 	"github.com/russross/blackfriday/v2"
 )
 
 type ArticlePostPageData struct {
-	Title string
-	Author string
-	Content template.HTML 
+	Id			int64
+	Title 		string
+	Author 		string
+	Content 	template.HTML 
+	IsAdmin		bool
 }
 
 func ReadArticle(w http.ResponseWriter, r *http.Request) {
-	pageData := ArticlePostPageData {}
-	contents, err := services.GetArticleById(r.URL.Path)
-	if err != nil {
-		log.Println(err)
+	u := strings.Split(r.URL.Path, "/")
+	endpoint := u[len(u) - 1]
+	var idx int; var err error
+	if idx, err = strconv.Atoi(endpoint); err != nil {
+		http.Error(w, "invalid url", http.StatusInternalServerError)
+		return
 	}
 
-	markdown := blackfriday.Run([]byte(contents), blackfriday.WithExtensions(blackfriday.LaxHTMLBlocks))
-	pageData.Title = "Article"
+	pageData := ArticlePostPageData {}
+	article, err := services.GetArticleById(int64(idx))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	admin := services.IsAuthorized(r)
+	if !article.IsPublic && !admin {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	markdown := blackfriday.Run([]byte(article.Contents), blackfriday.WithExtensions(blackfriday.LaxHTMLBlocks))
+	pageData.Id = article.Id
+	pageData.Title = article.Title
 	pageData.Content = template.HTML(markdown)
+	pageData.IsAdmin = admin 
 
 	tmpl := template.Must(template.ParseFiles(
 		"templates/base.html",
-		"templates/articles/article_view.html",
+		"templates/articles/read_article.html",
 	))
-	tmpl.ExecuteTemplate(w, "article_view.html", pageData)
+	tmpl.ExecuteTemplate(w, "read_article.html", pageData)
 }

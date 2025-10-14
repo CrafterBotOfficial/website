@@ -14,9 +14,12 @@ func Init() {
 	fs := http.FileServer(http.Dir("public"))
 	http.Handle("/public/", http.StripPrefix("/public/", fs))
 	initFileServerVideo()
+	initFileServerAssets()
 
 	http.HandleFunc("/api/send-idea", api.SendIdea)
 	http.HandleFunc("/api/get-videos", api.RequestVideos)
+	http.HandleFunc("/api/edit-article", api.RequestEditArticleMenu)
+	http.HandleFunc("/api/submit-edit-article", api.EditArticle)
 
 	http.HandleFunc("/", web.Index)
 	http.HandleFunc("/contact", web.Contact)
@@ -39,4 +42,11 @@ func initFileServerVideo() {
 
 	fs := http.FileServer(http.Dir(dir))
 	http.Handle("/trailcam/", http.StripPrefix("/trailcam/", fs))
+}
+
+func initFileServerAssets() {
+	infoDir := os.Getenv("WEBSITE_INFO_DIRECTORY")
+	dir := filepath.Join(infoDir, "assets")
+	fs := http.FileServer(http.Dir(dir))
+	http.Handle("/info/", http.StripPrefix("/info/", fs))
 }

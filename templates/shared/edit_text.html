@@ -1,0 +1,27 @@
+<div>
+    <form>
+        <textarea name="text"
+                  class="form-control"
+                  style="min-height: 50rem;">{{.Content}}</textarea>
+
+        <input hidden="true" name="articleId" value="{{.Id}}">
+
+        <div class="form-check">
+            <input class="form-check-input" 
+                   type="checkbox" 
+                   name="Public"
+                   id="Public"
+                   {{if  .Public}}
+                   checked
+                   {{end}}>
+            <label class="form-check-label" for="checkDefault">Is Public</label>
+        </div>
+
+        <button type="submit"
+                class="form-control"
+                hx-post="/api/submit-edit-article"
+                hx-target="form"
+                hx-swap="innerHTML"
+                >Submit</button>
+    </form>
+</div>
