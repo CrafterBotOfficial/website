@@ -2,25 +2,19 @@
 
 ARG GO_VERSION=1.25.1
 
-FROM --platform=$BUILDPLATFORM alpine:latest AS build
-RUN apk update
-RUN apk add --no-cache go gcc musl-dev
+FROM --platform=$BUILDPLATFORM golang:latest AS build
 WORKDIR /src
 ARG TARGETPLATFORM
 COPY . .
 
-ENV CGO_ENABLED=1
-RUN go build -o /bin/server main.go
+RUN GOARCH=arm64 CGO_ENABLED=0 GOOS=linux go build -o /bin/server .
 
 ARG TARGETARCH
 
-RUN apk add --no-cache git openssh-client
 RUN --mount=type=ssh \
     mkdir -p ~/.ssh && \
     ssh-keyscan github.com >> ~/.ssh/known_hosts && \
     git clone git@github.com:CrafterBotOfficial/website-info.git --depth 1 website-info/
-
-COPY . .
 
 FROM alpine:latest AS final
 

@@ -30,11 +30,7 @@ func IsAuthorized(r *http.Request) bool {
 }
 
 func getAuthorizationToken() (string, error) {
-	b, err := os.ReadFile("./admin.env")
-	if err != nil {
-		return "", err
-	}
-
+	b := os.Getenv("ADMIN_TOKEN")
 	s := strings.TrimSpace(string(b))
 	if len(s) < 2 {
 		return "", errors.New("Bad auth token in admin.env")

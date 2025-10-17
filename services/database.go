@@ -6,7 +6,7 @@ import (
 	"os"
 	"path"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "modernc.org/sqlite"
 )
 
 var database *sql.DB
@@ -36,7 +36,7 @@ func ConnectDatabase() {
 		log.Fatalf("Database doesn't exist in directory %s", GetInfoRoot())
 	}
 
-	db, err := sql.Open("sqlite3", p)
+	db, err := sql.Open("sqlite", p)
 	if err != nil {
 		log.Fatal(err)
 	}
