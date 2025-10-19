@@ -26,5 +26,5 @@ jobs:
 
       - name: Push image
         run: |
-          docker tag website:latest git.crafterbot.com/crafterbot/website:latest
-          docker push git.crafterbot.com/crafterbot/website:latest
+          docker tag website:latest git.crafterbot.com/crafterbot/website-package:latest
+          docker push git.crafterbot.com/crafterbot/website-package:latest
