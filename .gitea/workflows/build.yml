@@ -20,9 +20,6 @@ jobs:
           username: Crafterbot
           password: ${{ secrets.PASSWORD }}
 
-      - name: Remove homeless shelter
-        run: sudo rm -rf /homeless-shelter
-
       - name: Build Arm Image
         run: |
          nix build .#packages.aarch64-linux.dockerImage

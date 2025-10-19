@@ -16,6 +16,9 @@
                     pname = "website";
                     version = "0.1.0";
                     src = ./.;
+                    buildPhase = ''
+                        export HOME=$(pwd)
+                        '';
                     vendorHash = "sha256-rcCF98dA8RR8vPeS0ivNgVfyaOKMnsC3XbhkdcSfb3w=";
                 };
                 dockerImage = pkgs.dockerTools.buildImage {
