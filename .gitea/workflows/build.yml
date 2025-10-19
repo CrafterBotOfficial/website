@@ -1,0 +1,31 @@
+name: Build and push
+on: [push]
+
+jobs:
+  Build-Docker-Image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v26
+        with:
+          nix_path: nixpkgs=channel:nixos-25.05
+
+      - name: Login to gitea
+        uses: docker/login-action@v3
+        with:
+          registry: git.crafterbot.com
+          username: Crafterbot
+          password: ${{ secrets.PASSWORD }}
+
+      - name: Build Arm Image
+        run: |
+          nix build .#packages.aarch64-linux.dockerImage
+          docker load < result
+
+      - name: Push image
+        run: |
+          docker tag website:latest crafterbot/website:latest
+          docker push crafterbot/website:latest
