@@ -21,8 +21,11 @@
                 dockerImage = pkgs.dockerTools.buildImage {
                     name = "website";
                     tag = "latest";
-                    contents = [ website ];
-                    copyToRoot = [ ./config.json ];
+                    copyToRoot = pkgs.buildEnv {
+                        name = "image-root";
+                        pathsToLink = [ "/bin" "/" ];
+                        paths = [ website ./. ];
+                    };
                     config = {
                         Cmd = [ "/bin/website" ];
                         ExposedPorts = { "8080/tcp" = {}; };

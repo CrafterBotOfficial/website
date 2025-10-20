@@ -18,7 +18,7 @@ jobs:
           username: Crafterbot
           password: ${{ secrets.PASSWORD }}
 
-      - name: Build Arm Image
+      - name: Build image
         run: |
           rm -rf /homeless-shelter
           nix build .#packages.aarch64-linux.dockerImage
