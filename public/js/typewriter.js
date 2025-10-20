@@ -11,7 +11,7 @@ Welcome to Ubuntu 24.9 (GNU/Linux 6.10.0-1007-raspi aarch64)<br>
     `
 
 const prefix = '<span id="context">crafterbot@ubuntu</span>:<span id="context-path">~</span>$ ' //"crafterbot@ubuntu:~$ " //
-const writerTempo = 15 
+const writerTempo = 10
 
 var typewriter = new Typewriter(container, {
     delay: writerTempo,
@@ -27,7 +27,7 @@ function clear() {
 function writeCommand(command, output, action) {
     const hasAction = action != undefined 
     typewriter
-        .pauseFor(!hasAction ? 500 : 0)
+        .pauseFor(!hasAction ? 250 : 0)
         .typeString(command)
         .pauseFor(250)
         .pasteString("<br>" + output)

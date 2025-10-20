@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -29,10 +30,10 @@ func SendIdea(w http.ResponseWriter, r *http.Request) {
 		htmxError("Failed anti-robot check", w)
 	}
 
-	idea := r.FormValue("idea")
-	msg := p.Sanitize(idea)
+	c := p.Sanitize(r.FormValue("contact"))
+	i := p.Sanitize(r.FormValue("idea"))
 
-	if len(idea) == 0 {
+	if len(i) == 0 {
 		htmxError("Please write something to send.", w)
 		return
 	}
@@ -43,7 +44,7 @@ func SendIdea(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := services.SendWebhook(url,  services.WebhookPayload { Content: msg })
+	err := services.SendWebhook(url,  services.WebhookPayload { Content: fmt.Sprintf("%s ``says`` %s", c, i) })
 	if err != nil {
 		htmxError(err.Error(), w)
 	}
@@ -54,6 +55,5 @@ func SendIdea(w http.ResponseWriter, r *http.Request) {
 
 func htmxError(err string, w http.ResponseWriter) {
 	log.Println(err)
-	err = "Error occured:<br>" + err
-	w.Write([]byte(err))
+	services.RespondError(w, err)
 }

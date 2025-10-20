@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"log"
 	"net/http"
 )
 
@@ -28,6 +29,7 @@ func SendWebhook(url string, payload WebhookPayload) error {
 	if err != nil {
 		return errors.New("Failed to send webhook.")
 	}
+	log.Printf("%s\n", resp.Status)
 	defer resp.Body.Close()
 	return nil
 }

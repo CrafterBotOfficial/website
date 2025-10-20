@@ -1,0 +1,14 @@
+services:
+  website:
+    image: "localhost:3000/crafterbot/website-package:latest"
+    container_name: website
+    ports:
+      - 8080:8080
+    volumes:
+      - /var/www/website-info:/data
+    environment:
+      WEBSITE_INFO_DIRECTORY: /data/
+    depends_on:
+      server:
+        condition: service_healthy
+    restart: always
