@@ -27,7 +27,7 @@ func SendWebhook(url string, payload WebhookPayload) error {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return errors.New("Failed to send webhook.")
+		return err
 	}
 	log.Printf("%s\n", resp.Status)
 	defer resp.Body.Close()

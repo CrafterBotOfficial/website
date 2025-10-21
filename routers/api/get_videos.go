@@ -3,7 +3,6 @@ package api
 import (
 	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"strconv"
 	"website/services"
@@ -23,7 +22,7 @@ func RequestVideos(w http.ResponseWriter, r *http.Request) {
 		var err error
 		pageIndex, err = strconv.Atoi(page)
 		if err != nil {
-			log.Println("Bad request")
+			htmxError("Bad request", w)
 			return
 		}
 	}

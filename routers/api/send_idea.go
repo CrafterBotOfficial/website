@@ -47,6 +47,7 @@ func SendIdea(w http.ResponseWriter, r *http.Request) {
 	err := services.SendWebhook(url,  services.WebhookPayload { Content: fmt.Sprintf("%s ``says`` %s", c, i) })
 	if err != nil {
 		htmxError(err.Error(), w)
+		return
 	}
 
 	response := "<label class=\"\">Successfully sent message</label>"
