@@ -14,7 +14,7 @@
                 };
                 website = pkgs.buildGoModule {
                     pname = "website";
-                    version = "0.1.10";
+                    version = "0.2.0";
                     src = ./.;
                     vendorHash = "sha256-rcCF98dA8RR8vPeS0ivNgVfyaOKMnsC3XbhkdcSfb3w=";
                 };

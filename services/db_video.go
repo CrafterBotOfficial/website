@@ -3,19 +3,22 @@ package services
 import (
 	"fmt"
 	"log"
+	"os"
+	"path"
 	"slices"
 	"strings"
 	"time"
 )
 
 type VideoData struct {
-	Id			int
-	Title 		string
-	DownloadUrl string
-	Summary 	string
-	Date		time.Time
+	Id				int
+	Title 			string
+	DownloadUrl 	string
+	Summary 		string
+	Date			time.Time
 
-	IsVideo		bool
+	IsVideo		  	bool
+	ThumbnailUrl 	string
 }
 
 var cachedVideoRows []VideoData
@@ -52,6 +55,12 @@ func GetVideos() ([]VideoData, error) {
 			rows.Scan(&b.Id, &b.Title, &b.DownloadUrl, &b.Summary, &b.Date)
 			b.DownloadUrl = fmt.Sprintf("/trailcam/%s", b.DownloadUrl)
 			b.IsVideo = strings.HasSuffix(strings.ToLower(b.DownloadUrl), ".mp4")
+
+			p := path.Join("/trailcam/", path.Base(b.DownloadUrl) + ".jpg")
+			if _, err := os.Stat(p); err != nil {
+				// log.Println("Found thumbnail for image " + b.DownloadUrl)
+				b.ThumbnailUrl = p
+			}
 			r = append(r, b)
 		}
 		cachedVideoRows = r

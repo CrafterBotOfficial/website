@@ -1,0 +1,32 @@
+body {
+    background-color: black;
+}
+
+.form-control, .form-label,
+.card {
+    background-color: black;
+}
+
+.nav-tab, .nav-item {
+    border-bottom: 0;
+}
+
+a.nav-link {
+    /* text-decoration: underline; */
+    color: white;
+}
+
+a.nav-link:hover {
+    color: white;
+    font-weight: bold;
+}
+
+a.nav-link.active {
+    font-weight: bold;
+    background-color: black !important;
+    border-bottom-color: black !important;
+    text-decoration: none !important;
+}
+
+.card#article-post {
+}
