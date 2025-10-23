@@ -23,8 +23,8 @@
                     tag = "latest";
                     copyToRoot = pkgs.buildEnv {
                         name = "image-root";
-                        pathsToLink = [ "/bin" "/" ];
-                        paths = [ website ./. ];
+                        pathsToLink = [ "/bin" "/" "/etc" ];
+                        paths = [ website ./. pkgs.cacert ];
                     };
                     config = {
                         Cmd = [ "/bin/website" ];
